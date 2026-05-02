@@ -133,7 +133,13 @@ const ServicesPage: React.FC = () => {
                 className="lab-input"
               />
               <button 
-                onClick={() => window.location.href = 'https://sira-dashboard.netlify.app'}
+                onClick={() => {
+                  if (serial === 'SIRA-982009') {
+                    window.location.href = 'https://sira-dashboard.netlify.app';
+                  } else {
+                    alert('Invalid Serial Number. Please check your unit credentials.');
+                  }
+                }}
                 style={{ width: '100%', background: 'var(--primary-green)', color: '#1a3c34', padding: '1.2rem', borderRadius: '100px', fontWeight: 800, marginTop: '1.5rem', border: 'none', cursor: 'pointer' }} 
                 className="lab-btn"
               >

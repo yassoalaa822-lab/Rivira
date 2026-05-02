@@ -39,24 +39,6 @@ const articles: Article[] = [
     excerpt: "New graphene-based smart membranes are now using real-time IoT sensors to adapt filtration density based on water turbidity, drastically reducing energy consumption in wastewater treatment.",
     image: "https://www.twi-global.com/CachedImage.axd?ImageName=What-is-Sustainability.jpg&ImageWidth=784&ImageHeight=379&ImageVersionID=102110&ImageModified=20201029133929",
     readTime: "7 min read"
-  },
-  {
-    id: 4,
-    category: "Green Hydrogen",
-    date: "December 05, 2024",
-    title: "Kemetra's Legacy: The Industrial Scaling of Green Hydrogen",
-    excerpt: "With production costs falling below $2/kg, green hydrogen is finally becoming a practical fossil-fuel alternative for shipping and heavy industry, driven by breakthroughs in alkaline electrolysis.",
-    image: "https://images.unsplash.com/photo-1516937142412-25e6212fac9b?auto=format&fit=crop&q=80&w=1200",
-    readTime: "4 min read"
-  },
-  {
-    id: 5,
-    category: "Reforestation",
-    date: "November 22, 2024",
-    title: "Robotic Precision: Reaching the 10 Billion Tree Milestone",
-    excerpt: "Using autonomous drones and predictive biomass monitoring, global reforestation efforts are achieving unprecedented survival rates, restoring biodiversity to degraded lands at light speed.",
-    image: "https://images.unsplash.com/photo-1511497584788-8767fe78e726?auto=format&fit=crop&q=80&w=1200",
-    readTime: "8 min read"
   }
 ];
 

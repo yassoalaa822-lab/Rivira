@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger, Draggable);
 
 const getRoleIcon = (role: string) => {
   const r = role.toLowerCase();
-  if (r.includes('software')) return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
+  if (r.includes('software') || r.includes('developer') || r.includes('cto') || r.includes('cio')) return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
   if (r.includes('hardware') || r.includes('engineering')) return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>;
   if (r.includes('r&d') || r.includes('science')) return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 3h15"/><path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3"/><path d="M6 14h12"/></svg>;
   if (r.includes('ceo') || r.includes('cfo') || r.includes('business')) return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>;
@@ -20,7 +20,7 @@ const getRoleIcon = (role: string) => {
   return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/></svg>;
 };
 
-const TeamCard: React.FC<{ name: string, role: string, description: string, image: string }> = ({ name, role, description, image }) => {
+const TeamCard: React.FC<{ name: string, role: string, description: string, image: string, hasFrame?: boolean }> = ({ name, role, description, image, hasFrame }) => {
   return (
     <div 
       style={{ 
@@ -29,8 +29,8 @@ const TeamCard: React.FC<{ name: string, role: string, description: string, imag
         background: 'rgba(255, 255, 255, 0.95)', 
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(0, 0, 0, 0.05)',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.02)',
+        border: hasFrame ? '1px solid var(--primary-green)' : '1px solid rgba(0, 0, 0, 0.05)',
+        boxShadow: hasFrame ? '0 15px 35px rgba(26, 60, 52, 0.08)' : '0 10px 30px rgba(0,0,0,0.02)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -47,8 +47,8 @@ const TeamCard: React.FC<{ name: string, role: string, description: string, imag
           height: '120px', 
           borderRadius: '50%', 
           overflow: 'hidden', 
-          border: '4px solid white',
-          boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+          border: hasFrame ? '4px solid #eefdf4' : '4px solid white',
+          boxShadow: hasFrame ? '0 10px 20px rgba(26, 60, 52, 0.08)' : '0 10px 20px rgba(0,0,0,0.1)'
         }}>
           <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
@@ -451,14 +451,14 @@ const teamMembers = [
     image: "/team members/Hamza Ahmed.jpeg"
   },
   {
-    name: "Ezz El-Deen",
-    role: "CFO & Business Strategy",
-    description: "Manages pricing, financial planning, and cost optimization while supporting scalability strategy.",
+    name: "Ezz El-Deen Mounis",
+    role: "Marketing & Strategy",
+    description: "Leads corporate branding, market expansion strategies, and manages educational campaigns.",
     image: "/team members/Ezz.jpeg"
   },
   {
     name: "Belal Hany",
-    role: "CTO / Systems Lead",
+    role: "COO",
     description: "Oversees technical infrastructure, cloud platforms, and maintains data system reliability.",
     image: "/team members/Belal Hany.jpeg"
   },
@@ -476,19 +476,20 @@ const teamMembers = [
   },
   {
     name: "Youssef Attia",
-    role: "Engineering (Hardware)",
+    role: "CFO",
     description: "Integrates filtration components and focusses on system durability and maintenance.",
     image: "/team members/Youssef Attia.jpeg"
   },
   {
     name: "Mohammed Mahdi",
-    role: "Software Team",
-    description: "Develops SIRA’s live monitoring dashboard and implements real-time analytics.",
-    image: "/team members/Mohamed Mahdi.jpeg"
+    role: "CTO",
+    description: "Developed the ReVera corporate website and implements real-time analytics.",
+    image: "/team members/Mohamed Mahdi.jpeg",
+    hasFrame: true
   },
   {
     name: "Yassin Alaa",
-    role: "Software Team",
+    role: "CIO",
     description: "Maintains corporate interfaces and oversees live alert notifications and analytics.",
     image: "/team members/yassine alaa.jpeg"
   },
@@ -845,7 +846,7 @@ const About: React.FC = () => {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/ysz5S6PUM-U?autoplay=0&controls=1&rel=0" 
+                src="https://www.youtube.com/embed/HjOEfTujrQs?autoplay=0&controls=1&rel=0" 
                 title="Our Story" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

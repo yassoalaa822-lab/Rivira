@@ -117,15 +117,48 @@ const ContactPage: React.FC = () => {
 
   const products = ["SIRA", "PureDrp", "CleanCycle", "KEMETRA"];
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submissionMessage, setSubmissionMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formType === 'pilot') {
+      setSubmissionMessage("Thank you for your interest! Currently, there isn't stock yet for the selected product. We will notify you once it's available.");
+    } else {
+      setSubmissionMessage("Your request has been successfully submitted! Our engineering team will review it and get back to you shortly.");
+    }
+    setIsSubmitted(true);
+  };
+
   const renderForm = () => {
+    if (isSubmitted) {
+      return (
+        <div style={{ textAlign: 'center', padding: '2rem' }} className="animate-fade-in">
+          <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>
+            {formType === 'pilot' ? '📦' : '✅'}
+          </div>
+          <p style={{ fontSize: '1.2rem', color: '#1a3c34', lineHeight: 1.6, maxWidth: '500px', margin: '0 auto 2rem auto' }}>
+            {submissionMessage}
+          </p>
+          <button 
+            onClick={() => setIsSubmitted(false)}
+            className="btn-outline-nav"
+            style={{ padding: '0.8rem 2rem', borderRadius: '100px', borderColor: '#1a3c34', color: '#1a3c34' }}
+          >
+            Go Back
+          </button>
+        </div>
+      );
+    }
+
     switch(formType) {
       case 'pilot':
         return (
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className="animate-fade-in">
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className="animate-fade-in">
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
               <div className="input-group">
                 <label>Full Name</label>
-                <input type="text" placeholder="John Doe" />
+                <input type="text" placeholder="John Doe" required />
               </div>
               <div className="input-group">
                 <label>Target Product</label>
@@ -137,18 +170,18 @@ const ContactPage: React.FC = () => {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
               <div className="input-group">
                 <label>Email Address</label>
-                <input type="email" placeholder="john@example.com" />
+                <input type="email" placeholder="john@example.com" required />
               </div>
               <div className="input-group">
                 <label>Contact Number</label>
-                <input type="tel" placeholder="+20 123 456 7890" />
+                <input type="tel" placeholder="+20 123 456 7890" required />
               </div>
             </div>
             <div className="input-group">
               <label>Message</label>
-              <textarea placeholder="Tell us about your project goals..." style={{ minHeight: '120px' }} />
+              <textarea placeholder="Tell us about your project goals..." style={{ minHeight: '120px' }} required />
             </div>
-            <button className="btn-get-started btn-roll" style={{ background: 'var(--primary-green)', color: '#1a3c34', height: '72px', borderRadius: '100px', width: '100%' }}>
+            <button type="submit" className="btn-get-started btn-roll" style={{ background: 'var(--primary-green)', color: '#1a3c34', height: '72px', borderRadius: '100px', width: '100%' }}>
               <div className="roll-text" style={{ height: '72px' }}>
                 <span style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Request Pilot</span>
                 <span style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Request Pilot</span>
@@ -158,22 +191,22 @@ const ContactPage: React.FC = () => {
         );
       case 'inspection':
         return (
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className="animate-fade-in">
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className="animate-fade-in">
             <div className="input-group">
               <label>Full Name</label>
-              <input type="text" placeholder="John Doe" />
+              <input type="text" placeholder="John Doe" required />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
               <div className="input-group">
                 <label>Email Address</label>
-                <input type="email" placeholder="john@example.com" />
+                <input type="email" placeholder="john@example.com" required />
               </div>
               <div className="input-group">
                 <label>Contact Number</label>
-                <input type="tel" placeholder="+20 123 456 7890" />
+                <input type="tel" placeholder="+20 123 456 7890" required />
               </div>
             </div>
-            <button className="btn-get-started btn-roll" style={{ background: 'var(--primary-green)', color: '#1a3c34', height: '72px', borderRadius: '100px', width: '100%' }}>
+            <button type="submit" className="btn-get-started btn-roll" style={{ background: 'var(--primary-green)', color: '#1a3c34', height: '72px', borderRadius: '100px', width: '100%' }}>
               <div className="roll-text" style={{ height: '72px' }}>
                 <span style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Request Inspection</span>
                 <span style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Request Inspection</span>
@@ -183,20 +216,20 @@ const ContactPage: React.FC = () => {
         );
       case 'complaint':
         return (
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className="animate-fade-in">
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }} className="animate-fade-in">
             <div className="input-group">
               <label>Full Name</label>
-              <input type="text" placeholder="John Doe" />
+              <input type="text" placeholder="John Doe" required />
             </div>
             <div className="input-group">
               <label>Email Address</label>
-              <input type="email" placeholder="john@example.com" />
+              <input type="email" placeholder="john@example.com" required />
             </div>
             <div className="input-group">
               <label>Description of the problem</label>
-              <textarea placeholder="Please describe the issue in detail..." style={{ minHeight: '150px' }} />
+              <textarea placeholder="Please describe the issue in detail..." style={{ minHeight: '150px' }} required />
             </div>
-            <button className="btn-get-started btn-roll" style={{ background: '#ef4444', color: 'white', height: '72px', borderRadius: '100px', width: '100%' }}>
+            <button type="submit" className="btn-get-started btn-roll" style={{ background: '#ef4444', color: 'white', height: '72px', borderRadius: '100px', width: '100%' }}>
               <div className="roll-text" style={{ height: '72px' }}>
                 <span style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Submit Complaint</span>
                 <span style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Submit Complaint</span>

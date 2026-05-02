@@ -11,6 +11,7 @@ import Blog from './pages/Blog';
 import SplitText from './components/SplitText';
 import RotatingText from './components/RotatingText';
 import ScrollReveal from './components/ScrollReveal';
+import AccessibilityWidget from './components/AccessibilityWidget';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,9 +48,9 @@ const TreeTransition: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
       left: 0,
       width: '100vw',
       height: '100vh',
-      zIndex: 2000000000,
+      zIndex: 999998,
       pointerEvents: isVisible ? 'auto' : 'none',
-      display: 'flex',
+      display: (isVisible || isActive) ? 'flex' : 'none',
       overflow: 'hidden',
       visibility: (isVisible || isActive) ? 'visible' : 'hidden'
     }}>
@@ -236,7 +237,7 @@ const ImpactSection: React.FC = () => {
             <iframe 
               width="100%" 
               height="100%" 
-              src="https://www.youtube.com/embed/VIDEO_ID" 
+              src="https://www.youtube.com/embed/HjOEfTujrQs" 
               title="About ReVera Video" 
               frameBorder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -655,7 +656,8 @@ const Footer: React.FC = () => (
         textTransform: 'uppercase',
         lineHeight: 1.1,
         color: '#1a3c34',
-        margin: 0
+        margin: 0,
+        marginTop: '5rem'
       }}>
         FOR A<br />SUSTAINABLE<br />FUTURE
       </h2>
@@ -664,7 +666,7 @@ const Footer: React.FC = () => (
         <img 
           src="/revera logo.png" 
           alt="ReVera Logo" 
-          style={{ height: '95px', objectFit: 'contain', filter: 'brightness(0.3)' }} 
+          style={{ height: '140px', objectFit: 'contain', filter: 'brightness(0.3)' }} 
         />
         
         {/* Social Icons - Now highly visible by default */}
@@ -678,7 +680,7 @@ const Footer: React.FC = () => (
           <SocialIcon href="#facebook" color="#1877F2">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
           </SocialIcon>
-          <SocialIcon href="#youtube" color="#FF0000">
+          <SocialIcon href="https://www.youtube.com/@Revera-c8l" color="#FF0000">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
           </SocialIcon>
         </div>
@@ -964,7 +966,6 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const [isTransparent, setIsTransparent] = useState(isHomePage);
-  const [isLogoHovered, setIsLogoHovered] = useState(false);
 
   useEffect(() => {
     if (!isHomePage) {
@@ -1000,7 +1001,7 @@ const Navbar: React.FC = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      zIndex: 1000000000,
+      zIndex: 999999,
       opacity: 1,
       pointerEvents: 'auto',
       background: isTransparent 
@@ -1017,8 +1018,6 @@ const Navbar: React.FC = () => {
     }}>
       <NavBtn 
         to="/"
-        onMouseEnter={() => setIsLogoHovered(true)}
-        onMouseLeave={() => setIsLogoHovered(false)}
         style={{ pointerEvents: 'auto' }}
       >
         <img 
@@ -1028,15 +1027,15 @@ const Navbar: React.FC = () => {
             width: 'auto', 
             height: '90px', 
             objectFit: 'contain', 
-            filter: isLogoHovered 
-              ? 'brightness(0) saturate(100%) invert(82%) sepia(51%) saturate(542%) hue-rotate(42deg) brightness(97%) contrast(89%)' 
-              : ((isDarkPage) ? 'brightness(0) invert(1)' : 'none'),
             transition: 'all 0.4s ease',
             marginTop: '-22.5px',
             marginBottom: '-22.5px',
             position: 'relative',
             zIndex: 10,
-            transform: isLogoHovered ? 'scale(1.05)' : 'scale(1)',
+            transform: 'scale(1)',
+            filter: isHomePage 
+              ? 'brightness(0) invert(1)'
+              : 'none',
             pointerEvents: 'none' // Let button handle events
           }} 
         />
@@ -1052,7 +1051,6 @@ const Navbar: React.FC = () => {
         <NavBtn to="/" className="nav-link-item" style={{ color: themeColor, opacity: 0.8 }}>Home</NavBtn>
         <NavBtn to="/about" className="nav-link-item" style={{ color: themeColor, opacity: 0.8 }}>About Us</NavBtn>
         <NavBtn to="/services" className="nav-link-item" style={{ color: themeColor, opacity: 0.8 }}>Services</NavBtn>
-        <NavBtn to="/research" className="nav-link-item" style={{ color: themeColor, opacity: 0.8 }}>Research</NavBtn>
         <NavBtn to="/blog" className="nav-link-item" style={{ color: themeColor, opacity: 0.8 }}>Blog</NavBtn>
       </div>
 
@@ -1160,6 +1158,7 @@ const MainLayout: React.FC<{ lenis: Lenis | null }> = ({ lenis }) => {
   return (
     <>
       <Navbar />
+      <AccessibilityWidget />
       <TreeTransition isVisible={isTransitioning} /> 
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -1183,13 +1182,6 @@ const MainLayout: React.FC<{ lenis: Lenis | null }> = ({ lenis }) => {
             <Blog />
           </div>
         } />
-        {["/research"].map(path => (
-          <Route key={path} path={path} element={
-            <div className="page-wrapper animate-fade-in">
-              <AboutPage />
-            </div>
-          } />
-        ))}
       </Routes>
       <Footer />
       <ScrollToTop lenis={lenis} />
